@@ -1,0 +1,15 @@
+domain_id: mathematics_numerical
+display_name: Numerical Mathematics
+parent_domain: mathematics
+
+experiment_paradigm: convergence
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-math:latest
+gpu_required: false
+
+evaluation_protocol: "Run method at multiple step sizes, compute error against reference solution. Report convergence order."
+paper_keywords:
+  - numerical methods
+  - convergence analysis
+  - error estimates

@@ -1,0 +1,36 @@
+[project]
+name = "researchclaw"
+version = "0.5.0"
+description = "AutoResearchClaw — Autonomous Research Pipeline."
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml>=6.0",
+    "rich>=13.0",
+    "arxiv>=2.1",
+]
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+anthropic = ["httpx>=0.26"]
+web = ["scholarly>=1.7", "crawl4ai>=0.2", "tavily-python>=0.3"]
+pdf = ["PyMuPDF>=1.23"]
+all = [
+    "httpx>=0.26",
+    "scholarly>=1.7",
+    "crawl4ai>=0.2",
+    "tavily-python>=0.3",
+    "PyMuPDF>=1.23",
+]
+dev = ["pytest>=7.0", "pytest-asyncio>=0.21", "httpx>=0.26"]
+
+[project.scripts]
+researchclaw = "researchclaw.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["researchclaw"]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

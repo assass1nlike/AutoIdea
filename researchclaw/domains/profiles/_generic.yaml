@@ -1,0 +1,13 @@
+domain_id: generic
+display_name: Generic Computational Research
+parent_domain: ""
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+evaluation_protocol: "Compare methods on standard test problems. Report primary metric with error bars."
+paper_keywords:
+  - computational methods

@@ -1,0 +1,134 @@
+project:
+  name: "my-research"
+  mode: "full-auto"
+
+research:
+  topic: "Your research topic here"
+  domains:
+    - "machine-learning"
+  daily_paper_count: 10
+  quality_threshold: 4.0
+
+runtime:
+  timezone: "America/New_York"
+  max_parallel_tasks: 3
+  approval_timeout_hours: 12
+  retry_limit: 2
+
+notifications:
+  channel: "console"
+  target: ""
+  on_stage_start: true
+  on_stage_fail: true
+  on_gate_required: true
+
+knowledge_base:
+  backend: "markdown"
+  root: "docs/kb"
+
+openclaw_bridge:
+  use_cron: false
+  use_message: false
+  use_memory: false
+  use_sessions_spawn: false
+  use_web_fetch: false
+  use_browser: false
+
+llm:
+  provider: "openai-compatible"
+  base_url: "https://api.openai.com/v1"
+  proxy_url: ""  # Optional HTTP proxy, e.g. http://127.0.0.1:7890
+  wire_api: "chat_completions"  # Set to "responses" for Responses-only gateways
+  stream: false  # Enable for Chat Completions gateways with short request timeouts
+  api_key_env: "OPENAI_API_KEY"
+  api_key: ""
+  primary_model: "gpt-4o"
+  reasoning_effort: ""  # Empty: server default; set a level supported by your model
+  fallback_models:
+    - "gpt-4.1"
+    - "gpt-4o-mini"
+  # --- MiniMax provider example (global OpenAI-compatible endpoint) ---
+  # provider: "minimax-global"
+  # base_url: "https://api.minimax.io/v1"
+  # api_key_env: "MINIMAX_API_KEY"
+  # primary_model: "MiniMax-M3"
+  # fallback_models:
+  #   - "MiniMax-M2.7"
+  # Other endpoint presets:
+  #   minimax: https://api.minimaxi.com/v1
+  #   minimax-anthropic: https://api.minimax.io/anthropic
+  #   minimax-anthropic-cn: https://api.minimaxi.com/anthropic
+  # Anthropic-compatible presets require: pip install "researchclaw[anthropic]"
+  # --- Atlas Cloud provider example ---
+  # provider: "atlascloud"
+  # api_key_env: "ATLASCLOUD_API_KEY"
+  # primary_model: "deepseek-ai/deepseek-v4-pro"
+  # fallback_models:
+  #   - "deepseek-ai/deepseek-v4-flash"
+  # --- Ollama (local) example ---
+  # provider: "ollama"
+  # base_url: "http://localhost:11434/v1"
+  # api_key_env: ""
+  # api_key: "ollama"
+  # primary_model: "llama3.2"
+  # fallback_models:
+  #   - "mistral"
+
+literature_search:
+  # Stage 4 academic search backends. Defaults preserve the current
+  # OpenAlex -> Semantic Scholar -> arXiv order.
+  sources:
+    - "openalex"
+    - "semantic_scholar"
+    - "arxiv"
+  max_results_per_query: 40
+  inter_query_delay_sec: 1.5
+  openalex_email: "researchclaw@users.noreply.github.com"
+  openalex_api_key_env: "OPENALEX_API_KEY"
+  openalex_api_key: ""
+  s2_api_key_env: "S2_API_KEY"
+  s2_api_key: ""
+
+security:
+  hitl_required_stages: [5]
+  redact_sensitive_logs: true
+
+prompts:
+  custom_file: ""  # e.g. "my_prompts.yaml" (empty = use built-in defaults)
+
+  # Per-stage additional guidance. Each key is a stage name (run
+  # `researchclaw info` to see the full stage list); each value is either
+  # an inline instruction or a path to a text/markdown file. The text is
+  # appended to that stage's user prompt under "## Additional Stage
+  # Guidance". Unknown stage names emit a warning and are dropped.
+  #
+  #   extra_prompts:
+  extra_prompts: {}
+
+
+# === MetaClaw Integration ===
+# Enable the MetaClaw bridge to get skill injection, PRM quality gates,
+# and continuous learning from research pipeline failures.
+# Requires MetaClaw to be running: metaclaw start --mode skills_only
+metaclaw_bridge:
+  enabled: false
+  proxy_url: "http://localhost:30000"    # MetaClaw proxy endpoint
+  skills_dir: "~/.metaclaw/skills"       # MetaClaw skills directory
+  fallback_url: ""                       # Direct LLM URL if proxy is down
+  fallback_api_key: ""
+
+  # PRM quality gate: LLM-as-judge scoring at gate stages
+  prm:
+    enabled: false
+    api_base: ""                         # OpenAI-compatible API for PRM judge
+    api_key_env: "PRM_API_KEY"
+    api_key: ""
+    model: "gpt-5.4"
+    votes: 3                             # Majority vote count
+    gate_stages: [5]          # Stages to apply PRM gating
+
+  # Lesson-to-skill: auto-convert pipeline failures into MetaClaw skills
+  lesson_to_skill:
+    enabled: true
+    min_severity: "error"                # Only convert error-level lessons
+    max_skills_per_run: 3

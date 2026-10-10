@@ -1,0 +1,17 @@
+domain_id: ml_generative
+display_name: Generative Models (ML)
+parent_domain: ml
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-ml:latest
+gpu_required: true
+
+evaluation_protocol: "Train generative model, compute FID and IS on generated samples vs real data. Report mean +/- std over 3+ seeds."
+paper_keywords:
+  - generative adversarial network
+  - diffusion model
+  - variational autoencoder
+  - image generation
+  - score matching

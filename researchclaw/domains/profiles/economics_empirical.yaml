@@ -1,0 +1,16 @@
+domain_id: economics_empirical
+display_name: Empirical Economics
+parent_domain: economics
+
+experiment_paradigm: progressive_spec
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-economics:latest
+gpu_required: false
+
+evaluation_protocol: "Progressive specification: OLS → +controls → +FE → +IV. Report regression table with coefficients, SE, R², N."
+paper_keywords:
+  - causal inference
+  - instrumental variables
+  - panel data
+  - regression analysis

@@ -1,0 +1,15 @@
+domain_id: biology_singlecell
+display_name: Single-Cell Analysis
+parent_domain: biology
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-biology:latest
+gpu_required: false
+
+evaluation_protocol: "Apply clustering methods, evaluate against known cell types. Report ARI, NMI, silhouette score."
+paper_keywords:
+  - single-cell RNA-seq
+  - cell clustering
+  - differential expression

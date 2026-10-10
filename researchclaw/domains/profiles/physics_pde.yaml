@@ -1,0 +1,16 @@
+domain_id: physics_pde
+display_name: PDE Solvers
+parent_domain: physics
+
+experiment_paradigm: convergence
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-physics:latest
+gpu_required: false
+
+evaluation_protocol: "Solve on progressively finer grids, compute L2/L-inf error against analytical solution. Determine convergence order."
+paper_keywords:
+  - partial differential equations
+  - finite element method
+  - finite difference method
+  - numerical PDE

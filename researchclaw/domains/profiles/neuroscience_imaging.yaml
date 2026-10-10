@@ -1,0 +1,17 @@
+domain_id: neuroscience_imaging
+display_name: Brain Imaging Analysis
+parent_domain: neuroscience
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+evaluation_protocol: "Generate synthetic imaging data or use standard atlases. Run analysis pipeline, report classification accuracy with cross-validation, or connectivity metrics."
+paper_keywords:
+  - brain imaging
+  - functional connectivity
+  - neural decoding
+  - fMRI analysis
+  - EEG signal processing

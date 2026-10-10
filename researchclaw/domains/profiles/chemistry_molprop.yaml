@@ -1,0 +1,15 @@
+domain_id: chemistry_molprop
+display_name: Molecular Property Prediction
+parent_domain: chemistry
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-chemistry:latest
+gpu_required: false
+
+evaluation_protocol: "Train/test split or cross-validation. Report MAE, RMSE on test set."
+paper_keywords:
+  - molecular property prediction
+  - cheminformatics
+  - QSAR

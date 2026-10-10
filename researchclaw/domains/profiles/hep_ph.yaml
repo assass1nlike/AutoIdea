@@ -1,0 +1,44 @@
+domain_id: hep_ph
+display_name: High Energy Physics Phenomenology
+parent_domain: hep_ph
+
+# Tip: to plug in extra stage-level physics guidance (e.g. a MadGraph
+# toolchain note for code_generation, or a JHEP-style outline rule for
+# paper_outline), use the top-level `prompts.extra_prompts` block in
+# config.yaml. Run `researchclaw info` to see the full list of stage
+# names this run will execute plus any extras already configured.
+
+# --- Deployment defaults ---------------------------------------------------
+# Consumed by researchclaw.domains.deploy when this profile is selected via
+# --profile hep_ph or project.profile: hep_ph.  Every key here only applies
+# if the user's config.yaml leaves the matching slot blank.
+preferred_experiment_mode: collider_agent      # maps to experiment.mode
+preferred_project_mode: full-auto              # maps to project.mode
+preferred_target_conference: jhep              # maps to export.target_conference
+default_time_budget_sec: 7200                  # 2 hours per collider sim
+default_max_iterations: 5
+default_metric_key: exclusion_95cl
+default_metric_direction: maximize
+
+experiment_paradigm: simulation
+
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+paper_keywords:
+  - dark matter
+  - direct detection
+  - collider phenomenology
+  - beyond standard model
+  - effective field theory
+  - exclusion limits
+  - relic density
+  - simplified model
+
+# NOTE: Narrative stage prompts (dataset/compute/hp/results prose) are now
+# carried by researchclaw.prompts.hep. Only the blueprint-level
+# code_generation_hints is retained here because it feeds
+# PromptAdapter.get_blueprint_context() which wraps the code_agent/CodeGen
+# blueprint prompt. Everything else is redundant with the HEP prompt bank.

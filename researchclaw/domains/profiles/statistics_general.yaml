@@ -1,0 +1,36 @@
+domain_id: statistics_general
+display_name: "Statistical Methodology & Simulation"
+parent_domain: statistics_general
+
+# Tip: to plug in extra stage-level guidance (e.g. a bootstrap CI note for
+# code_generation, or a JASA-style outline rule for paper_outline), use
+# the top-level `prompts.extra_prompts` block in config.yaml.
+
+# --- Deployment defaults ---------------------------------------------------
+# Consumed by researchclaw.domains.deploy when this profile is selected via
+# --profile statistics_general or project.profile: statistics_general.
+preferred_experiment_mode: stat_agent           # maps to experiment.mode
+preferred_project_mode: full-auto               # maps to project.mode
+preferred_target_conference: generic            # maps to export.target_conference (JASA template not available; fall back to generic)
+default_time_budget_sec: 1800                   # 30 min per simulation study
+default_max_iterations: 4
+default_metric_key: primary_metric
+default_metric_direction: maximize
+
+experiment_paradigm: simulation
+
+entry_point: src/experiment.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+paper_keywords:
+  - bootstrap
+  - confidence interval
+  - coverage
+  - semiparametric inference
+  - double machine learning
+  - cross-fitting
+  - robust statistics
+  - model selection
+  - simulation study

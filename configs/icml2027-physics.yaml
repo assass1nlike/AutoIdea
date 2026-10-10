@@ -1,0 +1,127 @@
+# 从仓库根目录运行；本文件同时保存运行配置和提示词覆盖。
+# python -m researchclaw run --config configs/icml2027-physics.yaml --output artifacts/icml2027-physics-01 --auto-approve
+
+project:
+  name: "icml2027-ai-for-physics"
+  mode: "full-auto"
+  profile: "ml_generic"
+
+research:
+  topic: &research_topic |
+    Develop three distinct, high-quality AI for Physics research ideas for a paper targeting ICML 2027. 
+    Each idea should be a separate candidate paper, not a sub-hypothesis or a minor variant of another idea. 
+    Prioritize IMPORTANT problems with REAL unresolved gaps supported by the latest available research. 
+    No compute budget, hardware allocation, or data-access privilege has been specified now. 
+    Produce the final three ideas in Chinese, ranked by priority. 
+    Do not fabricate references, verified novelty, experimental results.
+  domains:
+    - "machine-learning"
+    - "physics"
+    - "scientific machine learning"
+  quality_threshold: 0.7
+
+runtime:
+  timezone: "Asia/Shanghai"
+
+notifications:
+  channel: "console"
+
+knowledge_base:
+  backend: "markdown"
+  root: "artifacts/icml2027-physics-01/kb"
+
+llm:
+  provider: "openai-compatible"
+  base_url: "https://api.fangcunleap.com/azure-gateway/v1"
+  proxy_url: ""  # 可选代理；需要时填 http://127.0.0.1:7890
+  wire_api: "responses"
+  stream: false
+  api_key_env: "OPENAI_API_KEY"
+  api_key: ""
+  primary_model: "gpt-6-astra"
+  reasoning_effort: "xhigh"
+  fallback_models: []
+  timeout_sec: 600
+  debate_enabled: false
+  tournament_enabled: false
+
+literature_search:
+  sources: ["openalex", "semantic_scholar", "arxiv"]
+  max_results_per_query: 40
+  inter_query_delay_sec: 1.5
+  openalex_email: ""
+  openalex_api_key_env: "OPENALEX_API_KEY"
+  openalex_api_key: ""
+  s2_api_key_env: "S2_API_KEY"
+  s2_api_key: ""
+
+web_search:
+  enabled: true
+
+security:
+  hitl_required_stages: [5]
+
+hitl:
+  enabled: false
+
+metaclaw_bridge:
+  enabled: false
+
+prompts:
+  custom_file: "configs/icml2027-physics.yaml"
+  extra_prompts:
+    problem_decompose: |
+      将研究任务拆解为需要调查的问题，保留原任务的目标与约束。
+      将待验证的研究缺口写成问题，不提前当作事实或替用户收窄任务范围。
+
+    search_strategy: |
+      根据研究任务与子问题设计查询，同时检索支持与反驳候选缺口的已有工作。
+      使用简短的英文专业术语。保留原提示词要求的 JSON 输出结构；
+      将查询写入 search_plan_yaml 内的 search_strategies[].queries，
+      将年份下限写入 filters.min_year。
+
+    literature_collect: |
+      保留论文身份与可核实的来源链接；检索失败或信息无法核实时明确标出。
+      不用虚构文献填补候选数量。
+
+    literature_screen: |
+      按研究任务筛选直接相关文献，包括判断问题价值和已有解决方案所需的工作。
+      保留反证、关键基线与原始论文信息，不能仅凭共享术语判断相关。
+
+    knowledge_extract: |
+      提取文献实际解决的问题、方法、适用条件、发现和局限，保留来源链接。
+      区分作者结论与自己的推断，注明依据来自全文还是仅摘要；未知内容标为未知。
+      保留原提示词要求的 cards JSON 结构。
+
+    synthesis: |
+      围绕研究任务综合文献，说明已有工作做到什么、哪些问题尚未解决及其证据。
+      保留关键来源、反证和未核实事项，供后续候选生成使用。
+      不把缺少检索结果等同于不存在已有解法，也不额外添加选题标准或资源限制。
+
+# 第一阶段使用 topic 原文，只将任务整理为后续阶段可用的说明。
+stages:
+  topic_init:
+    system: |
+      You turn a user's research task into an actionable research brief.
+      Treat the provided task as the source of goals, scope, selection criteria,
+      output requirements, and resource constraints. Do not add requirements
+      or assume answers to questions that need literature investigation.
+    user: |
+      Research task:
+      {topic}
+
+      整理上述任务，明确后续需要调查的问题与需要收集的证据。
+      保留原任务要求，区分已知条件和未知事项，不提前替用户确定选题。
+
+# YAML 引用与 research.topic 共用同一份文字；修改 topic 后无需同步修改这里。
+sub_prompts:
+  hypothesis_synthesize:
+    system: *research_topic
+    user: |
+      根据研究任务综合以下候选方案及其论据，形成最终结果。
+      合并重复候选，比较支持与反对证据，必要时修订或舍弃候选。
+      数量、语言、排序和选题标准均遵循研究任务，不继承候选中额外假定的约束。
+      说明选择依据和仍需核实的关键问题，不将证据不足的判断写成已确认事实。
+
+      候选方案及其论据：
+      {perspectives}

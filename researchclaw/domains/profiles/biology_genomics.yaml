@@ -1,0 +1,15 @@
+domain_id: biology_genomics
+display_name: Genomics Analysis
+parent_domain: biology
+experiment_paradigm: comparison
+entry_point: main.py
+core_libraries: [biopython, numpy, scikit-learn, pandas]
+docker_image: researchclaw/sandbox-biology:latest
+gpu_required: false
+pip_packages: [biopython, numpy, scikit-learn, pandas, matplotlib]
+metric_types: [scalar]
+standard_baselines: [BLAST, BWA, GATK]
+evaluation_protocol: "Compare methods on standard genomic tasks."
+statistical_tests: [paired_t_test]
+github_search_terms: [genomics python, sequence analysis biopython]
+paper_keywords: [genomics, sequence analysis]

@@ -1,0 +1,17 @@
+domain_id: ml_compression
+display_name: Model Compression (ML)
+parent_domain: ml
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-ml:latest
+gpu_required: true
+
+evaluation_protocol: "Compare compressed model against full model. Report accuracy, model size, FLOPs, and inference latency. Mean +/- std over 3+ seeds."
+paper_keywords:
+  - knowledge distillation
+  - network pruning
+  - model quantization
+  - model compression
+  - efficient inference

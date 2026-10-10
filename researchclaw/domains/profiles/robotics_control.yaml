@@ -1,0 +1,15 @@
+domain_id: robotics_control
+display_name: Robotics & Control
+parent_domain: robotics
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-robotics:latest
+gpu_required: true
+
+evaluation_protocol: "Train in environment, evaluate over 100 episodes. Report mean return, success rate."
+paper_keywords:
+  - robot learning
+  - control policy
+  - manipulation

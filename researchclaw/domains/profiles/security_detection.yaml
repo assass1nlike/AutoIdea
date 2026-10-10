@@ -1,0 +1,15 @@
+domain_id: security_detection
+display_name: Security / Intrusion Detection
+parent_domain: security
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-security:latest
+gpu_required: false
+
+evaluation_protocol: "Train/test split. Report TPR, FPR, F1, per-class metrics."
+paper_keywords:
+  - intrusion detection
+  - anomaly detection
+  - network security

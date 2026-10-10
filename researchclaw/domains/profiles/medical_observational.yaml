@@ -1,0 +1,28 @@
+domain_id: medical_observational
+display_name: Medical Observational Research
+parent_domain: medicine
+
+# Deployment defaults. This profile is a methodology-safety overlay for
+# retrospective clinical/epidemiology manuscripts, not a conference ML track.
+preferred_experiment_mode: sandbox
+preferred_project_mode: co-pilot
+preferred_target_conference: generic
+default_time_budget_sec: 1800
+default_max_iterations: 3
+default_metric_key: primary_effect_estimate
+default_metric_direction: maximize
+
+experiment_paradigm: progressive_spec
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+paper_keywords:
+  - retrospective cohort
+  - case-control study
+  - cross-sectional study
+  - STROBE
+  - clinical registry
+  - EHR
+  - de-identified data

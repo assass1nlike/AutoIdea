@@ -1,0 +1,15 @@
+domain_id: chemistry_qm
+display_name: Quantum Chemistry
+parent_domain: chemistry
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-chemistry:latest
+gpu_required: false
+
+evaluation_protocol: "Calculate molecular properties with different methods, compare against high-level reference (CCSD(T) or experimental)."
+paper_keywords:
+  - quantum chemistry
+  - density functional theory
+  - electronic structure

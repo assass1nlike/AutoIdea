@@ -1,0 +1,20 @@
+domain_id: clinical_sleep
+display_name: Clinical Sleep and Perioperative Monitoring
+parent_domain: clinical
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-generic:latest
+gpu_required: false
+
+paper_keywords:
+  - sleep apnea
+  - polysomnography
+  - PSG
+  - HSAT
+  - perioperative monitoring
+  - anesthesia
+  - airway management
+  - respiratory depression
+  - physiological signal processing

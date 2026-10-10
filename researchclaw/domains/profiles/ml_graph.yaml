@@ -1,0 +1,17 @@
+domain_id: ml_graph
+display_name: Graph Neural Networks (ML)
+parent_domain: ml
+
+experiment_paradigm: comparison
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-ml:latest
+gpu_required: true
+
+evaluation_protocol: "Train on training set, evaluate on test set. Report mean +/- std over 3+ seeds. Use standard dataset splits when available."
+paper_keywords:
+  - graph neural network
+  - node classification
+  - graph classification
+  - message passing
+  - link prediction

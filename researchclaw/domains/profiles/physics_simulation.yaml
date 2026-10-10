@@ -1,0 +1,16 @@
+domain_id: physics_simulation
+display_name: Computational Physics (Simulation)
+parent_domain: physics
+
+experiment_paradigm: simulation
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-physics:latest
+gpu_required: false
+
+evaluation_protocol: "Run simulation with multiple methods, compare energy conservation and trajectory accuracy. Report energy drift, relative error."
+paper_keywords:
+  - molecular dynamics
+  - N-body simulation
+  - symplectic integrator
+  - energy conservation

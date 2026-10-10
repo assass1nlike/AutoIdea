@@ -1,0 +1,45 @@
+domain_id: biology_metabolic
+display_name: "Constraint-Based Metabolic Modelling"
+parent_domain: biology_metabolic
+
+# Tip: to plug in extra stage-level guidance (e.g. a COBRApy / BIGG note for
+# code_generation, or a Nature-Methods-style outline rule for paper_outline),
+# use the top-level `prompts.extra_prompts` block in config.yaml. Run
+# `researchclaw info` to list the active stage names plus configured extras.
+
+# --- Deployment defaults ---------------------------------------------------
+# Consumed by researchclaw.domains.deploy when this profile is selected via
+# --profile biology_metabolic or project.profile: biology_metabolic. Every
+# key here only applies if the user's config.yaml leaves the matching slot
+# blank.
+preferred_experiment_mode: biology_agent       # maps to experiment.mode
+preferred_project_mode: full-auto              # maps to project.mode
+preferred_target_conference: nature_methods    # maps to export.target_conference
+default_time_budget_sec: 3600                  # 1 hour per FBA / scan run
+default_max_iterations: 5
+default_metric_key: biomass_growth_rate
+default_metric_direction: maximize
+
+experiment_paradigm: simulation
+
+entry_point: main.py
+
+docker_image: researchclaw/sandbox-biology:latest
+gpu_required: false
+
+paper_keywords:
+  - flux balance analysis
+  - genome-scale metabolic model
+  - constraint-based modelling
+  - metabolic engineering
+  - gene essentiality
+  - phenotypic phase plane
+  - in-silico knockout
+  - BIGG database
+  - COBRApy
+
+# NOTE: Narrative stage prompts are carried by researchclaw.prompts.biology
+# (which inherits from researchclaw.prompts.ml and overrides 5 stages).
+# Only the blueprint-level code_generation_hints is retained here because
+# it feeds PromptAdapter.get_blueprint_context() which wraps the
+# code_agent / CodeGen blueprint prompt.
